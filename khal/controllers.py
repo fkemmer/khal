@@ -117,10 +117,14 @@ def get_agenda(collection, locale, dates=None, firstweekday=0,
         if len(events) == 0 and len(all_day_events) == 0 and not show_all_days:
             continue
 
+        # Add empty line before a new day
+        if len(event_column) != 0:
+            event_column.append("")
+
         event_column.append(style(dayname, bold=True))
         events.sort(key=lambda e: e.start)
         for event in itertools.chain(all_day_events, events):
-            desc = textwrap.wrap(event.relative_to(day), width)
+            desc = textwrap.wrap("  " + event.relative_to(day), width)
             event_column.extend([colored(d, event.color) for d in desc])
 
     if event_column == []:
