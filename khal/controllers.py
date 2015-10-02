@@ -82,6 +82,10 @@ def get_agenda(collection, locale, dates=None, firstweekday=0,
 
     """
     event_column = list()
+    num_events = events
+
+    if num_events is None:
+        num_events = -1
 
     if days is None:
         days = 2
@@ -125,7 +129,7 @@ def get_agenda(collection, locale, dates=None, firstweekday=0,
 
     if event_column == []:
         event_column = [style('No events', bold=True)]
-    return event_column
+    return event_column[:num_events]
 
 
 def calendar(collection, date=None, firstweekday=0, encoding='utf-8', locale=None,
